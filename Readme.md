@@ -1,4 +1,4 @@
-### neural network replication work
+### Neural Network Replication work
 
 ### To Do List
 * [x] batch norm
