@@ -8,5 +8,6 @@
 * [ ] yolo v2
 * [ ] Dense Net
 * [ ] Siamese Net
+* [ ] anchor generation
 
  
