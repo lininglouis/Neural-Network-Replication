@@ -9,5 +9,7 @@
 * [ ] Dense Net
 * [ ] Siamese Net
 * [x] anchor generation
+* [ ] classic NMS
+
 
  
