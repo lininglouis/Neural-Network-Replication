@@ -84,12 +84,40 @@ def _scale_enum(anchor, scales):
     anchors = _mkanchors(ws, hs, x_ctr, y_ctr)
     return anchors
     
+
+
+def visualize_anchor(anchors, title):
+    import cv2
+    anchors_coords = anchors.astype(int)
+    img = np.zeros((2000,2000,3)).astype(np.uint8)
+    for box in anchors_coords :
+        box = [i+500 for i in box]
+        x1,y1,x2,y2 = box
+        img = cv2.rectangle(img, (x1,y1),(x2,y2), (0,255,0), 2) 
+
+    path = os.path.join("/home/lining", title)
+    cv2.imwrite(path, img)
+
+
+
+
 if __name__ == '__main__':
     import cv2
     
     anchors_coords = generate_anchors().astype(np.uint8)
-    img = np.zeros((2000,2000,3)).astype(np.uint8)
-    for box in anchors_coords :
-        x1,y1,x2,y2 = box
-        img = cv2.rectangle(img, (x1,y1),(x2,y2), (0,255,0), 2) 
-    cv2.imwrite("anchors.png", img)
+    shifts = np.array([[  0, 0 , 0, 0], 
+                       [500, 500 ,500 , 500],
+                       [  0, 500 , 0, 500], 
+                       [500, 0, 500, 0]])
+
+    A = num_anchors
+    K = shifts.shape[0]   #   (choices of x) * (choices of y)
+    all_anchors = base_anchors.reshape((1, A, 4)) + shifts.reshape((1, K, 4)).transpose((1, 0, 2))
+    all_anchors = all_anchors.reshape((K * A, 4))
+ 
+
+    visualize_anchor(anchors=base_anchors, title='base_anchors.png')    
+    visualize_anchor(anchors=all_anchors, title='all_anchors.png')
+    print(base_anchors.shape)
+    print(all_anchors.shape)
+    print(shifts.shape)
