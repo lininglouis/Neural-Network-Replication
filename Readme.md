@@ -18,7 +18,7 @@
 * [x] Cascade RCNN
 * [ ] FPN
 * [ ] Network in Network (NIN)
-
+* [x] XOR 
 
 
 
